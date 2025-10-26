@@ -1,1 +1,64 @@
+# Airbnb Database ERD - Requirements
+
+## Entities
+1. User
+   - user_id (PK, UUID)
+   - first_name
+   - last_name
+   - email (unique)
+   - password_hash
+   - phone_number
+   - role (guest, host, admin)
+   - created_at
+
+2. Property
+   - property_id (PK, UUID)
+   - host_id (FK → User)
+   - name
+   - description
+   - location
+   - price_per_night
+   - created_at
+   - updated_at
+
+3. Booking
+   - booking_id (PK, UUID)
+   - property_id (FK → Property)
+   - user_id (FK → User)
+   - start_date
+   - end_date
+   - total_price
+   - status (pending, confirmed, canceled)
+   - created_at
+
+4. Payment
+   - payment_id (PK, UUID)
+   - booking_id (FK → Booking)
+   - amount
+   - payment_date
+   - payment_method (credit_card, paypal, stripe)
+
+5. Review
+   - review_id (PK, UUID)
+   - property_id (FK → Property)
+   - user_id (FK → User)
+   - rating (1-5)
+   - comment
+   - created_at
+
+6. Message
+   - message_id (PK, UUID)
+   - sender_id (FK → User)
+   - recipient_id (FK → User)
+   - message_body
+   - sent_at
+
+ Relationships
+- User (host) → Property (1-to-many)
+- User (guest) → Booking (1-to-many)
+- Property → Booking (1-to-many)
+- Booking → Payment (1-to-1)
+- User → Review (1-to-many)
+- Property → Review (1-to-many)
+- User → Message (1-to-many as sender and recipient)
 
